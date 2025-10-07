@@ -1,0 +1,12 @@
+# Maven target folder
+/target/
+
+# IDE files
+*.iml
+.idea/
+*.log
+*.class
+
+# OS files
+.DS_Store
+Thumbs.db
