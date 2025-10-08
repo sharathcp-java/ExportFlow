@@ -32,7 +32,7 @@ public class UserInfoService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
         return User.builder()
                 .username(user.getName())
-                .password(user.getPassword())
+                .password(passwordEncoder.encode(user.getPassword()))
                 .roles(user.getRoles())
                 .build();
     }

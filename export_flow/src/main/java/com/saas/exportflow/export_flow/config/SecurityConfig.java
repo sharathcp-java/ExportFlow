@@ -30,26 +30,22 @@ public class SecurityConfig {
     @Autowired
     private UserInfoService userInfoService;
 
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                // ✅ Allow frames for H2 console and disable CSRF for it
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/h2-console/**"))
-                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+  
+                @Bean
+                public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+                    http.csrf(AbstractHttpConfigurer::disable) // <-- DISABLE CSRF COMPLETELY
+                        .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+                        
+                        .authorizeHttpRequests(auth -> auth
+                                .requestMatchers("/auth/**").permitAll()     // public auth endpoints
+                                .requestMatchers("/h2-console/**").permitAll() // allow H2 console
+                                .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                                .anyRequest().authenticated()
+                        )
 
-                // ✅ Define which endpoints are accessible
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**").permitAll()     // public auth endpoints
-                        .requestMatchers("/h2-console/**").permitAll() // allow H2 console
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                        .anyRequest().authenticated()
-                )
-
-                // ✅ Keep JWT-based stateless sessions
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // ✅ Configure authentication
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 

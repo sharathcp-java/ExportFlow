@@ -1,4 +1,4 @@
-INSERT INTO USER_INFO (id, name, email, password, roles)
+INSERT INTO USER_INFO (name, email, password, roles)
 VALUES
-(1, 'admin', 'admin@example.com', '$2a$10$hAdQGgP9RvDAcOKTzU8qQum6eBLxUmt3yFjqyk9m0nphgEdbH4d3a', 'ROLE_ADMIN'),
-(2, 'user', 'user@example.com', '$2a$10$AhAyqp6fQFZ0yeNfxehYeexacKP0yJqY2eY6vVSoOVTn1Jm8DNix2', 'ROLE_USER');
+('admin', 'admin@example.com', '$2a$10$hAdQGgP9RvDAcOKTzU8qQum6eBLxUmt3yFjqyk9m0nphgEdbH4d3a', 'ADMIN'),
+('user', 'user@example.com', '$2a$10$AhAyqp6fQFZ0yeNfxehYeexacKP0yJqY2eY6vVSoOVTn1Jm8DNix2', 'USER');
