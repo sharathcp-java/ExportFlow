@@ -33,7 +33,7 @@ public class UserInfoService implements UserDetailsService {
         return User.builder()
                 .username(user.getName())
                 .password(passwordEncoder.encode(user.getPassword()))
-                .roles(user.getRoles())
+                .roles(user.getRole())
                 .build();
     }
 }

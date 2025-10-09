@@ -1,5 +1,6 @@
 package com.saas.exportflow.export_flow.handler;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @ControllerAdvice
 @RestController
+@Slf4j
 public class GlobalExceptionHandler {
 
     // Handles exceptions from the authentication process (e.g., in AuthController)
